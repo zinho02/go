@@ -10,7 +10,8 @@ import (
 
 // PublicKey represents an PQC public key.
 type PublicKey struct {
-	Bytes []byte
+	Bytes   []byte
+	AlgName string
 }
 
 // Equal reports whether public and x have the same value.
@@ -67,6 +68,7 @@ func GenerateKey(signatureName string) (*PrivateKey, error) {
 
 	privKey := new(PrivateKey)
 	privKey.Bytes = pubKeyBytes
+	privKey.AlgName = signatureName
 	privKey.Signer = signer
 
 	return privKey, nil
