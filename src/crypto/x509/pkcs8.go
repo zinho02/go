@@ -12,6 +12,8 @@ import (
 	"encoding/asn1"
 	"errors"
 	"fmt"
+
+	"github.com/zinho02/go/src/crypto/pqc"
 )
 
 // pkcs8 reflects an ASN.1, PKCS #8 PrivateKey. See
@@ -48,6 +50,14 @@ func ParsePKCS8PrivateKey(der []byte) (key interface{}, err error) {
 			return nil, errors.New("x509: failed to parse RSA private key embedded in PKCS#8: " + err.Error())
 		}
 		return key, nil
+
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyDilithium5):
+		var pqcKey pqc.PrivateKey
+		_, err := asn1.Unmarshal(privKey.PrivateKey, &pqcKey)
+		if err != nil {
+			return nil, errors.New("x509: failed to parse Dilithium5 private key embedded in PKCS#8: " + err.Error())
+		}
+		return &pqcKey, nil
 
 	case privKey.Algo.Algorithm.Equal(oidPublicKeyECDSA):
 		bytes := privKey.Algo.Parameters.FullBytes
@@ -95,6 +105,13 @@ func MarshalPKCS8PrivateKey(key interface{}) ([]byte, error) {
 			Parameters: asn1.NullRawValue,
 		}
 		privKey.PrivateKey = MarshalPKCS1PrivateKey(k)
+
+	case *pqc.PrivateKey:
+		privKey.Algo = pkix.AlgorithmIdentifier{
+			Algorithm:  oidPublicKeyDilithium5,
+			Parameters: asn1.NullRawValue,
+		}
+		privKey.PrivateKey, _ = asn1.Marshal(k)
 
 	case *ecdsa.PrivateKey:
 		oid, ok := oidFromNamedCurve(k.Curve)
