@@ -1,6 +1,6 @@
 module std
 
-go 1.17
+go 1.16
 
 require (
 	github.com/open-quantum-safe/liboqs-go v0.0.0-20210711155910-e7325d463abc

@@ -1,7 +1,7 @@
 package pqc_test
 
 import (
-	"std/crypto/pqc"
+	"crypto/pqc"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
