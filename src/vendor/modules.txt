@@ -1,5 +1,15 @@
+# github.com/davecgh/go-spew v1.1.0
+github.com/davecgh/go-spew/spew
+# github.com/open-quantum-safe/liboqs-go v0.0.0-20210711155910-e7325d463abc
+## explicit
+github.com/open-quantum-safe/liboqs-go/oqs
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
+# github.com/stretchr/testify v1.7.0
+## explicit
+github.com/stretchr/testify/assert
 # golang.org/x/crypto v0.0.0-20210503195802-e9a32991a82e
-## explicit; go 1.17
+## explicit
 golang.org/x/crypto/chacha20
 golang.org/x/crypto/chacha20poly1305
 golang.org/x/crypto/cryptobyte
@@ -9,7 +19,7 @@ golang.org/x/crypto/hkdf
 golang.org/x/crypto/internal/subtle
 golang.org/x/crypto/poly1305
 # golang.org/x/net v0.0.0-20210510120150-4163338589ed
-## explicit; go 1.17
+## explicit
 golang.org/x/net/dns/dnsmessage
 golang.org/x/net/http/httpguts
 golang.org/x/net/http/httpproxy
@@ -19,11 +29,13 @@ golang.org/x/net/lif
 golang.org/x/net/nettest
 golang.org/x/net/route
 # golang.org/x/sys v0.0.0-20210511113859-b0526f3d8744
-## explicit; go 1.17
+## explicit
 golang.org/x/sys/cpu
 # golang.org/x/text v0.3.7-0.20210503195748-5c7c50ebbd4f
-## explicit; go 1.17
+## explicit
 golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
+# gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
+gopkg.in/yaml.v3
