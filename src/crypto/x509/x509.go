@@ -11,6 +11,7 @@ import (
 	"crypto/ecdsa"
 	"crypto/ed25519"
 	"crypto/elliptic"
+	"crypto/pqc"
 	"crypto/rsa"
 	"crypto/sha1"
 	"crypto/x509/pkix"
@@ -98,6 +99,12 @@ func marshalPublicKey(pub interface{}) (publicKeyBytes []byte, publicKeyAlgorith
 	case ed25519.PublicKey:
 		publicKeyBytes = pub
 		publicKeyAlgorithm.Algorithm = oidPublicKeyEd25519
+	case *pqc.PublicKey:
+		publicKeyBytes = pub.Bytes
+		if err != nil {
+			return nil, pkix.AlgorithmIdentifier{}, err
+		}
+		publicKeyAlgorithm.Algorithm = pqc.GetPublicKeyOIDFromPublicKey(pub.AlgName)
 	default:
 		return nil, pkix.AlgorithmIdentifier{}, fmt.Errorf("x509: unsupported public key type: %T", pub)
 	}
@@ -197,6 +204,7 @@ const (
 	SHA384WithRSAPSS
 	SHA512WithRSAPSS
 	PureEd25519
+	PureDilithium5
 )
 
 func (algo SignatureAlgorithm) isRSAPSS() bool {
@@ -225,13 +233,15 @@ const (
 	DSA // Unsupported.
 	ECDSA
 	Ed25519
+	Dilithium5
 )
 
 var publicKeyAlgoName = [...]string{
-	RSA:     "RSA",
-	DSA:     "DSA",
-	ECDSA:   "ECDSA",
-	Ed25519: "Ed25519",
+	RSA:        "RSA",
+	DSA:        "DSA",
+	ECDSA:      "ECDSA",
+	Ed25519:    "Ed25519",
+	Dilithium5: "Dilithium5",
 }
 
 func (algo PublicKeyAlgorithm) String() string {
@@ -311,6 +321,7 @@ var (
 	oidSignatureECDSAWithSHA384 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 3}
 	oidSignatureECDSAWithSHA512 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 4}
 	oidSignatureEd25519         = asn1.ObjectIdentifier{1, 3, 101, 112}
+	oidSignatureDilithium5      = pqc.GetSignatureOIDFromPublicKey("dilithium5")
 
 	oidSHA256 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 1}
 	oidSHA384 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 2}
@@ -348,6 +359,7 @@ var signatureAlgorithmDetails = []struct {
 	{ECDSAWithSHA384, "ECDSA-SHA384", oidSignatureECDSAWithSHA384, ECDSA, crypto.SHA384},
 	{ECDSAWithSHA512, "ECDSA-SHA512", oidSignatureECDSAWithSHA512, ECDSA, crypto.SHA512},
 	{PureEd25519, "Ed25519", oidSignatureEd25519, Ed25519, crypto.Hash(0) /* no pre-hashing */},
+	{PureDilithium5, "Dilithium5", oidSignatureDilithium5, Dilithium5, crypto.Hash(0)},
 }
 
 // hashToPSSParameters contains the DER encoded RSA PSS parameters for the
@@ -446,10 +458,11 @@ func getSignatureAlgorithmFromAI(ai pkix.AlgorithmIdentifier) SignatureAlgorithm
 // id-ecPublicKey OBJECT IDENTIFIER ::= {
 //       iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
 var (
-	oidPublicKeyRSA     = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 1}
-	oidPublicKeyDSA     = asn1.ObjectIdentifier{1, 2, 840, 10040, 4, 1}
-	oidPublicKeyECDSA   = asn1.ObjectIdentifier{1, 2, 840, 10045, 2, 1}
-	oidPublicKeyEd25519 = oidSignatureEd25519
+	oidPublicKeyRSA        = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 1}
+	oidPublicKeyDSA        = asn1.ObjectIdentifier{1, 2, 840, 10040, 4, 1}
+	oidPublicKeyECDSA      = asn1.ObjectIdentifier{1, 2, 840, 10045, 2, 1}
+	oidPublicKeyEd25519    = oidSignatureEd25519
+	oidPublicKeyDilithium5 = pqc.GetPublicKeyOIDFromPublicKey("dilithium5")
 )
 
 func getPublicKeyAlgorithmFromOID(oid asn1.ObjectIdentifier) PublicKeyAlgorithm {
@@ -462,6 +475,8 @@ func getPublicKeyAlgorithmFromOID(oid asn1.ObjectIdentifier) PublicKeyAlgorithm 
 		return ECDSA
 	case oid.Equal(oidPublicKeyEd25519):
 		return Ed25519
+	case oid.Equal(oidPublicKeyDilithium5):
+		return Dilithium5
 	}
 	return UnknownPublicKeyAlgorithm
 }
@@ -816,6 +831,14 @@ func checkSignature(algo SignatureAlgorithm, signed, signature []byte, publicKey
 			hashType = details.hash
 			pubKeyAlgo = details.pubKeyAlgo
 		}
+	}
+
+	switch pub := publicKey.(type) {
+	case *pqc.PublicKey:
+		if !pqc.Verify(signed, signature, pub, pub.AlgName) {
+			return errors.New("x509: " + pub.AlgName + "verification failure")
+		}
+		return
 	}
 
 	switch hashType {
@@ -1343,6 +1366,13 @@ func signingParamsForPublicKey(pub interface{}, requestedSigAlgo SignatureAlgori
 	var pubType PublicKeyAlgorithm
 
 	switch pub := pub.(type) {
+	case *pqc.PublicKey:
+		switch pub.AlgName {
+		case "dilithium5":
+			pubType = Dilithium5
+			sigAlgo.Algorithm = oidSignatureDilithium5
+		}
+
 	case *rsa.PublicKey:
 		pubType = RSA
 		hashFunc = crypto.SHA256

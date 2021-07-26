@@ -11,6 +11,7 @@ import (
 	"crypto/ecdsa"
 	"crypto/ed25519"
 	"crypto/elliptic"
+	"crypto/pqc"
 	"crypto/rand"
 	"crypto/rsa"
 	_ "crypto/sha256"
@@ -26,6 +27,7 @@ import (
 	"math/big"
 	"net"
 	"net/url"
+	"os"
 	"os/exec"
 	"reflect"
 	"runtime"
@@ -3215,4 +3217,48 @@ func TestAuthKeyIdOptional(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ParseCertificate to failed to parse certificate with optional authority key identifier fields: %s", err)
 	}
+}
+
+/* ------------------------------------------------------------------------------------
+	                                    PQC Tests
+   ------------------------------------------------------------------------------------
+*/
+
+func TestCreateCertificatePQC(t *testing.T) {
+	privKey, _ := pqc.GenerateKey("dilithium5")
+
+	keyUsage := KeyUsageDigitalSignature | KeyUsageCertSign
+
+	notBefore := time.Now()
+	notAfter := notBefore.Add(time.Hour)
+
+	serialNumberLimit := new(big.Int).Lsh(big.NewInt(1), 128)
+	serialNumber, _ := rand.Int(rand.Reader, serialNumberLimit)
+
+	template := Certificate{
+		SerialNumber: serialNumber,
+		Subject: pkix.Name{
+			Organization: []string{"Acme Co"},
+		},
+		NotBefore: notBefore,
+		NotAfter:  notAfter,
+
+		IsCA: true,
+
+		KeyUsage:              keyUsage,
+		ExtKeyUsage:           []ExtKeyUsage{ExtKeyUsageServerAuth},
+		BasicConstraintsValid: true,
+	}
+
+	derBytes, _ := CreateCertificate(rand.Reader, &template, &template, privKey.PQCPublic(), privKey)
+
+	certOut, _ := os.Create("cert.pem")
+
+	pem.Encode(certOut, &pem.Block{Type: "CERTIFICATE", Bytes: derBytes})
+	certOut.Close()
+
+	keyOut, _ := os.OpenFile("key.pem", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+	//privBytes, _ := MarshalPKCS8PrivateKey(privKey)
+	pem.Encode(keyOut, &pem.Block{Type: "PRIVATE KEY", Bytes: privKey.Signer.ExportSecretKey()})
+	keyOut.Close()
 }

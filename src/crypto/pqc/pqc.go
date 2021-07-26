@@ -3,6 +3,7 @@ package pqc
 import (
 	"bytes"
 	"crypto"
+	"encoding/asn1"
 	"io"
 
 	"github.com/open-quantum-safe/liboqs-go/oqs"
@@ -101,4 +102,20 @@ func IsSigSupported(sig string) bool {
 // Verifies if the signature is enabled.
 func IsSigEnabled(sig string) bool {
 	return oqs.IsSigEnabled(sig)
+}
+
+func GetPublicKeyOIDFromPublicKey(algName string) asn1.ObjectIdentifier {
+	switch algName {
+	case "dilithium5":
+		return asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 6, 7}
+	}
+	return nil
+}
+
+func GetSignatureOIDFromPublicKey(algName string) asn1.ObjectIdentifier {
+	switch algName {
+	case "dilithium5":
+		return asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 6, 7}
+	}
+	return nil
 }
