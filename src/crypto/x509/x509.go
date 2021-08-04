@@ -205,6 +205,7 @@ const (
 	SHA512WithRSAPSS
 	PureEd25519
 	PureDilithium5
+	PureFalcon1024
 )
 
 func (algo SignatureAlgorithm) isRSAPSS() bool {
@@ -234,6 +235,7 @@ const (
 	ECDSA
 	Ed25519
 	Dilithium5
+	Falcon1024
 )
 
 var publicKeyAlgoName = [...]string{
@@ -242,6 +244,7 @@ var publicKeyAlgoName = [...]string{
 	ECDSA:      "ECDSA",
 	Ed25519:    "Ed25519",
 	Dilithium5: "Dilithium5",
+	Falcon1024: "Falcon1024",
 }
 
 func (algo PublicKeyAlgorithm) String() string {
@@ -322,6 +325,7 @@ var (
 	oidSignatureECDSAWithSHA512 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 4}
 	oidSignatureEd25519         = asn1.ObjectIdentifier{1, 3, 101, 112}
 	oidSignatureDilithium5      = pqc.GetSignatureOIDFromPublicKey("dilithium5")
+	oidSignatureFalcon1024      = pqc.GetSignatureOIDFromPublicKey("falcon1024")
 
 	oidSHA256 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 1}
 	oidSHA384 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 2}
@@ -360,6 +364,7 @@ var signatureAlgorithmDetails = []struct {
 	{ECDSAWithSHA512, "ECDSA-SHA512", oidSignatureECDSAWithSHA512, ECDSA, crypto.SHA512},
 	{PureEd25519, "Ed25519", oidSignatureEd25519, Ed25519, crypto.Hash(0) /* no pre-hashing */},
 	{PureDilithium5, "Dilithium5", oidSignatureDilithium5, Dilithium5, crypto.Hash(0)},
+	{PureFalcon1024, "Falcon1024", oidSignatureFalcon1024, Falcon1024, crypto.Hash(0)},
 }
 
 // hashToPSSParameters contains the DER encoded RSA PSS parameters for the
@@ -463,6 +468,7 @@ var (
 	oidPublicKeyECDSA      = asn1.ObjectIdentifier{1, 2, 840, 10045, 2, 1}
 	oidPublicKeyEd25519    = oidSignatureEd25519
 	oidPublicKeyDilithium5 = pqc.GetPublicKeyOIDFromPublicKey("dilithium5")
+	oidPublicKeyFalcon1024 = pqc.GetPublicKeyOIDFromPublicKey("falcon1024")
 )
 
 func getPublicKeyAlgorithmFromOID(oid asn1.ObjectIdentifier) PublicKeyAlgorithm {
@@ -477,6 +483,8 @@ func getPublicKeyAlgorithmFromOID(oid asn1.ObjectIdentifier) PublicKeyAlgorithm 
 		return Ed25519
 	case oid.Equal(oidPublicKeyDilithium5):
 		return Dilithium5
+	case oid.Equal(oidPublicKeyFalcon1024):
+		return Falcon1024
 	}
 	return UnknownPublicKeyAlgorithm
 }
@@ -1371,6 +1379,9 @@ func signingParamsForPublicKey(pub interface{}, requestedSigAlgo SignatureAlgori
 		case "dilithium5":
 			pubType = Dilithium5
 			sigAlgo.Algorithm = oidSignatureDilithium5
+		case "falcon1024":
+			pubType = Falcon1024
+			sigAlgo.Algorithm = oidSignatureFalcon1024
 		}
 
 	case *rsa.PublicKey:

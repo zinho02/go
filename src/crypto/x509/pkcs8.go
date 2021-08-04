@@ -7,6 +7,7 @@ package x509
 import (
 	"crypto/ecdsa"
 	"crypto/ed25519"
+	"crypto/pqc"
 	"crypto/rsa"
 	"crypto/x509/pkix"
 	"encoding/asn1"
@@ -21,6 +22,7 @@ type pkcs8 struct {
 	Version    int
 	Algo       pkix.AlgorithmIdentifier
 	PrivateKey []byte
+	PublicKey  []byte
 	// optional attributes omitted.
 }
 
@@ -48,7 +50,15 @@ func ParsePKCS8PrivateKey(der []byte) (key interface{}, err error) {
 			return nil, errors.New("x509: failed to parse RSA private key embedded in PKCS#8: " + err.Error())
 		}
 		return key, nil
-
+	case pqc.IsSigEnabled(privKey.Algo.Algorithm.String()):
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: privKey.Algo.Algorithm.String(),
+			},
+		}
+		key.Signer.Init(privKey.Algo.Algorithm.String(), privKey.PrivateKey)
+		return key, nil
 	case privKey.Algo.Algorithm.Equal(oidPublicKeyECDSA):
 		bytes := privKey.Algo.Parameters.FullBytes
 		namedCurveOID := new(asn1.ObjectIdentifier)
@@ -95,7 +105,13 @@ func MarshalPKCS8PrivateKey(key interface{}) ([]byte, error) {
 			Parameters: asn1.NullRawValue,
 		}
 		privKey.PrivateKey = MarshalPKCS1PrivateKey(k)
-
+	case *pqc.PrivateKey:
+		privKey.Algo = pkix.AlgorithmIdentifier{
+			Algorithm:  pqc.GetPublicKeyOIDFromPublicKey(k.AlgName),
+			Parameters: asn1.NullRawValue,
+		}
+		privKey.PublicKey = k.Bytes
+		privKey.PrivateKey = k.Signer.ExportSecretKey()
 	case *ecdsa.PrivateKey:
 		oid, ok := oidFromNamedCurve(k.Curve)
 		if !ok {
