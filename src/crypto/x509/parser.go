@@ -9,6 +9,7 @@ import (
 	"crypto/ecdsa"
 	"crypto/ed25519"
 	"crypto/elliptic"
+	"crypto/pqc"
 	"crypto/rsa"
 	"crypto/x509/pkix"
 	"encoding/asn1"
@@ -315,6 +316,18 @@ func parsePublicKey(algo PublicKeyAlgorithm, keyData *publicKeyInfo) (interface{
 		if pub.Y.Sign() <= 0 || pub.Parameters.P.Sign() <= 0 ||
 			pub.Parameters.Q.Sign() <= 0 || pub.Parameters.G.Sign() <= 0 {
 			return nil, errors.New("x509: zero or negative DSA parameter")
+		}
+		return pub, nil
+	case Dilithium5:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "dilithium5",
+		}
+		return pub, nil
+	case Falcon1024:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "falcon1024",
 		}
 		return pub, nil
 	default:

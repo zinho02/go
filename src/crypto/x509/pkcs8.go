@@ -50,14 +50,25 @@ func ParsePKCS8PrivateKey(der []byte) (key interface{}, err error) {
 			return nil, errors.New("x509: failed to parse RSA private key embedded in PKCS#8: " + err.Error())
 		}
 		return key, nil
-	case pqc.IsSigEnabled(privKey.Algo.Algorithm.String()):
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyDilithium5):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeyDilithium5)
 		key := pqc.PrivateKey{
 			PublicKey: pqc.PublicKey{
 				Bytes:   privKey.PublicKey,
-				AlgName: privKey.Algo.Algorithm.String(),
+				AlgName: algName,
 			},
 		}
-		key.Signer.Init(privKey.Algo.Algorithm.String(), privKey.PrivateKey)
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyFalcon1024):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeyFalcon1024)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
 		return key, nil
 	case privKey.Algo.Algorithm.Equal(oidPublicKeyECDSA):
 		bytes := privKey.Algo.Parameters.FullBytes

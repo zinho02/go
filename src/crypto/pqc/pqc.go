@@ -107,19 +107,53 @@ func IsSigEnabled(sig string) bool {
 func GetPublicKeyOIDFromPublicKey(algName string) asn1.ObjectIdentifier {
 	switch algName {
 	case "dilithium5":
-		return asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 6, 7}
+		return OIDPublicKeyDilithium5
 	case "falcon1024":
-		return asn1.ObjectIdentifier{1, 3, 9999, 3, 4}
+		return OIDPublicKeyFalcon1024
+	default:
+		return nil
 	}
-	return nil
+}
+
+func GetPublicKeyFromPublicKeyOID(oid asn1.ObjectIdentifier) string {
+	switch {
+	case oid.Equal(OIDPublicKeyDilithium5):
+		return "dilithium5"
+	case oid.Equal(OIDPublicKeyFalcon1024):
+		return "falcon1024"
+	default:
+		return ""
+	}
 }
 
 func GetSignatureOIDFromPublicKey(algName string) asn1.ObjectIdentifier {
 	switch algName {
 	case "dilithium5":
-		return asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 6, 7}
+		return OIDSignatureDilithium5
 	case "falcon1024":
-		return asn1.ObjectIdentifier{1, 3, 9999, 3, 4}
+		return OIDSignatureFalcon1024
+	default:
+		return nil
 	}
-	return nil
 }
+
+func GetPublicKeyFromSignatureOID(oid asn1.ObjectIdentifier) string {
+	switch {
+	case oid.Equal(OIDSignatureDilithium5):
+		return "dilithium5"
+	case oid.Equal(OIDSignatureFalcon1024):
+		return "falcon1024"
+	default:
+		return ""
+	}
+}
+
+var (
+	OIDPublicKeyDilithium5 = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 6, 7}
+	OIDPublicKeyFalcon1024 = asn1.ObjectIdentifier{1, 3, 9999, 3, 4}
+)
+
+var (
+	OIDSignatureDilithium5 = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 6, 7}
+	OIDSignatureFalcon1024 = asn1.ObjectIdentifier{1, 3, 9999, 3, 4}
+)

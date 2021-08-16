@@ -324,8 +324,8 @@ var (
 	oidSignatureECDSAWithSHA384 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 3}
 	oidSignatureECDSAWithSHA512 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 4}
 	oidSignatureEd25519         = asn1.ObjectIdentifier{1, 3, 101, 112}
-	oidSignatureDilithium5      = pqc.GetSignatureOIDFromPublicKey("dilithium5")
-	oidSignatureFalcon1024      = pqc.GetSignatureOIDFromPublicKey("falcon1024")
+	oidSignatureDilithium5      = pqc.OIDSignatureDilithium5
+	oidSignatureFalcon1024      = pqc.OIDSignatureFalcon1024
 
 	oidSHA256 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 1}
 	oidSHA384 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 2}
@@ -467,8 +467,8 @@ var (
 	oidPublicKeyDSA        = asn1.ObjectIdentifier{1, 2, 840, 10040, 4, 1}
 	oidPublicKeyECDSA      = asn1.ObjectIdentifier{1, 2, 840, 10045, 2, 1}
 	oidPublicKeyEd25519    = oidSignatureEd25519
-	oidPublicKeyDilithium5 = pqc.GetPublicKeyOIDFromPublicKey("dilithium5")
-	oidPublicKeyFalcon1024 = pqc.GetPublicKeyOIDFromPublicKey("falcon1024")
+	oidPublicKeyDilithium5 = pqc.OIDPublicKeyDilithium5
+	oidPublicKeyFalcon1024 = pqc.OIDPublicKeyFalcon1024
 )
 
 func getPublicKeyAlgorithmFromOID(oid asn1.ObjectIdentifier) PublicKeyAlgorithm {
