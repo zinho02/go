@@ -108,7 +108,7 @@ func GetPublicKeyOIDFromPublicKey(algName string) asn1.ObjectIdentifier {
 	switch algName {
 	case "dilithium5":
 		return OIDPublicKeyDilithium5
-	case "falcon1024":
+	case "falcon-1024":
 		return OIDPublicKeyFalcon1024
 	default:
 		return nil
@@ -120,7 +120,7 @@ func GetPublicKeyFromPublicKeyOID(oid asn1.ObjectIdentifier) string {
 	case oid.Equal(OIDPublicKeyDilithium5):
 		return "dilithium5"
 	case oid.Equal(OIDPublicKeyFalcon1024):
-		return "falcon1024"
+		return "falcon-1024"
 	default:
 		return ""
 	}
@@ -130,7 +130,7 @@ func GetSignatureOIDFromPublicKey(algName string) asn1.ObjectIdentifier {
 	switch algName {
 	case "dilithium5":
 		return OIDSignatureDilithium5
-	case "falcon1024":
+	case "falcon-1024":
 		return OIDSignatureFalcon1024
 	default:
 		return nil
@@ -142,7 +142,7 @@ func GetPublicKeyFromSignatureOID(oid asn1.ObjectIdentifier) string {
 	case oid.Equal(OIDSignatureDilithium5):
 		return "dilithium5"
 	case oid.Equal(OIDSignatureFalcon1024):
-		return "falcon1024"
+		return "falcon-1024"
 	default:
 		return ""
 	}

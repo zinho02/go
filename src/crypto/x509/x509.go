@@ -244,7 +244,7 @@ var publicKeyAlgoName = [...]string{
 	ECDSA:      "ECDSA",
 	Ed25519:    "Ed25519",
 	Dilithium5: "Dilithium5",
-	Falcon1024: "Falcon1024",
+	Falcon1024: "Falcon-1024",
 }
 
 func (algo PublicKeyAlgorithm) String() string {
@@ -364,7 +364,7 @@ var signatureAlgorithmDetails = []struct {
 	{ECDSAWithSHA512, "ECDSA-SHA512", oidSignatureECDSAWithSHA512, ECDSA, crypto.SHA512},
 	{PureEd25519, "Ed25519", oidSignatureEd25519, Ed25519, crypto.Hash(0) /* no pre-hashing */},
 	{PureDilithium5, "Dilithium5", oidSignatureDilithium5, Dilithium5, crypto.Hash(0)},
-	{PureFalcon1024, "Falcon1024", oidSignatureFalcon1024, Falcon1024, crypto.Hash(0)},
+	{PureFalcon1024, "Falcon-1024", oidSignatureFalcon1024, Falcon1024, crypto.Hash(0)},
 }
 
 // hashToPSSParameters contains the DER encoded RSA PSS parameters for the
@@ -1379,7 +1379,7 @@ func signingParamsForPublicKey(pub interface{}, requestedSigAlgo SignatureAlgori
 		case "dilithium5":
 			pubType = Dilithium5
 			sigAlgo.Algorithm = oidSignatureDilithium5
-		case "falcon1024":
+		case "falcon-1024":
 			pubType = Falcon1024
 			sigAlgo.Algorithm = oidSignatureFalcon1024
 		}

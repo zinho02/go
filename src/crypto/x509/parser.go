@@ -327,7 +327,7 @@ func parsePublicKey(algo PublicKeyAlgorithm, keyData *publicKeyInfo) (interface{
 	case Falcon1024:
 		pub := &pqc.PublicKey{
 			Bytes:   keyData.PublicKey.Bytes,
-			AlgName: "falcon1024",
+			AlgName: "falcon-1024",
 		}
 		return pub, nil
 	default:
