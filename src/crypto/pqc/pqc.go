@@ -80,10 +80,10 @@ func (priv *PrivateKey) Sign(rand io.Reader, data []byte, opts crypto.SignerOpts
 }
 
 // Verifies the signature.
-func Verify(data, signature []byte, pub *PublicKey, signatureName string) bool {
+func (pub *PublicKey) Verify(data, signature []byte) bool {
 	verifier := oqs.Signature{}
 
-	if err := verifier.Init(signatureName, nil); err != nil {
+	if err := verifier.Init(pub.AlgName, nil); err != nil {
 		return false
 	}
 
@@ -92,16 +92,6 @@ func Verify(data, signature []byte, pub *PublicKey, signatureName string) bool {
 		return false
 	}
 	return isValid
-}
-
-// Verifies if the signature is supported.
-func IsSigSupported(sig string) bool {
-	return oqs.IsSigSupported(sig)
-}
-
-// Verifies if the signature is enabled.
-func IsSigEnabled(sig string) bool {
-	return oqs.IsSigEnabled(sig)
 }
 
 func GetPublicKeyOIDFromPublicKey(algName string) asn1.ObjectIdentifier {

@@ -843,7 +843,7 @@ func checkSignature(algo SignatureAlgorithm, signed, signature []byte, publicKey
 
 	switch pub := publicKey.(type) {
 	case *pqc.PublicKey:
-		if !pqc.Verify(signed, signature, pub, pub.AlgName) {
+		if !pub.Verify(signed, signature) {
 			return errors.New("x509: " + pub.AlgName + "verification failure")
 		}
 		return

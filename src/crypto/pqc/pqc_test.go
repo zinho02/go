@@ -54,6 +54,7 @@ func TestSign(t *testing.T) {
 func TestVerify(t *testing.T) {
 	privKey, _ := generateKey()
 	sig, _ := privKey.Sign(nil, []byte(msg), nil)
-	verifyTest := pqc.Verify([]byte(msg), sig, privKey.PQCPublic(), privKey.AlgName)
+	pubKey := privKey.PQCPublic()
+	verifyTest := pubKey.Verify([]byte(msg), sig)
 	assert.True(t, verifyTest)
 }
