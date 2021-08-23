@@ -205,7 +205,23 @@ const (
 	SHA512WithRSAPSS
 	PureEd25519
 	PureDilithium5
+	PureDilithium5AES
 	PureFalcon1024
+	PureRainbowVClassic
+	PureRainbowVCircumzenithal
+	PureRainbowVCompressed
+	PureSphincsPlusHaraka256sSimple
+	PureSphincsPlusHaraka256fSimple
+	PureSphincsPlusHaraka256sRobust
+	PureSphincsPlusHaraka256fRobust
+	PureSphincsPlusSHA256256sSimple
+	PureSphincsPlusSHA256256fSimple
+	PureSphincsPlusSHA256256sRobust
+	PureSphincsPlusSHA256256fRobust
+	PureSphincsPlusSHAKE256256sSimple
+	PureSphincsPlusSHAKE256256fSimple
+	PureSphincsPlusSHAKE256256sRobust
+	PureSphincsPlusSHAKE256256fRobust
 )
 
 func (algo SignatureAlgorithm) isRSAPSS() bool {
@@ -235,16 +251,48 @@ const (
 	ECDSA
 	Ed25519
 	Dilithium5
+	Dilithium5AES
 	Falcon1024
+	RainbowVClassic
+	RainbowVCircumzenithal
+	RainbowVCompressed
+	SphincsPlusHaraka256sSimple
+	SphincsPlusHaraka256fSimple
+	SphincsPlusHaraka256sRobust
+	SphincsPlusHaraka256fRobust
+	SphincsPlusSHA256256sSimple
+	SphincsPlusSHA256256fSimple
+	SphincsPlusSHA256256sRobust
+	SphincsPlusSHA256256fRobust
+	SphincsPlusSHAKE256256sSimple
+	SphincsPlusSHAKE256256fSimple
+	SphincsPlusSHAKE256256sRobust
+	SphincsPlusSHAKE256256fRobust
 )
 
 var publicKeyAlgoName = [...]string{
-	RSA:        "RSA",
-	DSA:        "DSA",
-	ECDSA:      "ECDSA",
-	Ed25519:    "Ed25519",
-	Dilithium5: "Dilithium5",
-	Falcon1024: "Falcon-1024",
+	RSA:                           "RSA",
+	DSA:                           "DSA",
+	ECDSA:                         "ECDSA",
+	Ed25519:                       "Ed25519",
+	Dilithium5:                    "Dilithium5",
+	Dilithium5AES:                 "Dilithium5-AES",
+	Falcon1024:                    "Falcon-1024",
+	RainbowVClassic:               "Rainbow-V-Classic",
+	RainbowVCircumzenithal:        "Rainbow-V-Circumzenithal",
+	RainbowVCompressed:            "Rainbow-V-Compressed",
+	SphincsPlusHaraka256sSimple:   "SPHINCS+-Haraka-256s-Simple",
+	SphincsPlusHaraka256fSimple:   "SPHINCS+-Haraka-256f-Simple",
+	SphincsPlusHaraka256sRobust:   "SPHINCS+-Haraka-256s-Robust",
+	SphincsPlusHaraka256fRobust:   "SPHINCS+-Haraka-256f-Robust",
+	SphincsPlusSHA256256fSimple:   "SPHINCS+-SHA256-256s-Simple",
+	SphincsPlusSHA256256sSimple:   "SPHINCS+-SHA256-256f-Simple",
+	SphincsPlusSHA256256sRobust:   "SPHINCS+-SHA256-256s-Robust",
+	SphincsPlusSHA256256fRobust:   "SPHINCS+-SHA256-256f-Robust",
+	SphincsPlusSHAKE256256sSimple: "SPHINCS+-SHAKE256-256s-Simple",
+	SphincsPlusSHAKE256256fSimple: "SPHINCS+-SHAKE256-256f-Simple",
+	SphincsPlusSHAKE256256sRobust: "SPHINCS+-SHAKE256-256s-Robust",
+	SphincsPlusSHAKE256256fRobust: "SPHINCS+-SHAKE256-256f-Robust",
 }
 
 func (algo PublicKeyAlgorithm) String() string {
@@ -310,22 +358,38 @@ func (algo PublicKeyAlgorithm) String() string {
 // id-Ed25519   OBJECT IDENTIFIER ::= { 1 3 101 112 }
 
 var (
-	oidSignatureMD2WithRSA      = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 2}
-	oidSignatureMD5WithRSA      = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 4}
-	oidSignatureSHA1WithRSA     = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 5}
-	oidSignatureSHA256WithRSA   = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 11}
-	oidSignatureSHA384WithRSA   = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 12}
-	oidSignatureSHA512WithRSA   = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 13}
-	oidSignatureRSAPSS          = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 10}
-	oidSignatureDSAWithSHA1     = asn1.ObjectIdentifier{1, 2, 840, 10040, 4, 3}
-	oidSignatureDSAWithSHA256   = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 3, 2}
-	oidSignatureECDSAWithSHA1   = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 1}
-	oidSignatureECDSAWithSHA256 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 2}
-	oidSignatureECDSAWithSHA384 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 3}
-	oidSignatureECDSAWithSHA512 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 4}
-	oidSignatureEd25519         = asn1.ObjectIdentifier{1, 3, 101, 112}
-	oidSignatureDilithium5      = pqc.OIDSignatureDilithium5
-	oidSignatureFalcon1024      = pqc.OIDSignatureFalcon1024
+	oidSignatureMD2WithRSA                    = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 2}
+	oidSignatureMD5WithRSA                    = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 4}
+	oidSignatureSHA1WithRSA                   = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 5}
+	oidSignatureSHA256WithRSA                 = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 11}
+	oidSignatureSHA384WithRSA                 = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 12}
+	oidSignatureSHA512WithRSA                 = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 13}
+	oidSignatureRSAPSS                        = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 10}
+	oidSignatureDSAWithSHA1                   = asn1.ObjectIdentifier{1, 2, 840, 10040, 4, 3}
+	oidSignatureDSAWithSHA256                 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 3, 2}
+	oidSignatureECDSAWithSHA1                 = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 1}
+	oidSignatureECDSAWithSHA256               = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 2}
+	oidSignatureECDSAWithSHA384               = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 3}
+	oidSignatureECDSAWithSHA512               = asn1.ObjectIdentifier{1, 2, 840, 10045, 4, 3, 4}
+	oidSignatureEd25519                       = asn1.ObjectIdentifier{1, 3, 101, 112}
+	oidSignatureDilithium5                    = pqc.OIDSignatureDilithium5
+	oidSignatureDilithium5AES                 = pqc.OIDSignatureDilithium5AES
+	oidSignatureFalcon1024                    = pqc.OIDSignatureFalcon1024
+	oidSignatureRainbowVClassic               = pqc.OIDSignatureRainbowVClassic
+	oidSignatureRainbowVCircumzenithal        = pqc.OIDSignatureRainbowVCircumzenithal
+	oidSignatureRainbowVCompressed            = pqc.OIDSignatureRainbowVCompressed
+	oidSignatureSphincsPlusHaraka256sSimple   = pqc.OIDSignatureSphincsPlusHaraka256sSimple
+	oidSignatureSphincsPlusHaraka256fSimple   = pqc.OIDSignatureSphincsPlusHaraka256fSimple
+	oidSignatureSphincsPlusHaraka256sRobust   = pqc.OIDSignatureSphincsPlusHaraka256sRobust
+	oidSignatureSphincsPlusHaraka256fRobust   = pqc.OIDSignatureSphincsPlusHaraka256fRobust
+	oidSignatureSphincsPlusSHA256256sSimple   = pqc.OIDSignatureSphincsPlusSHA256256sSimple
+	oidSignatureSphincsPlusSHA256256fSimple   = pqc.OIDSignatureSphincsPlusSHA256256fSimple
+	oidSignatureSphincsPlusSHA256256sRobust   = pqc.OIDSignatureSphincsPlusSHA256256sRobust
+	oidSignatureSphincsPlusSHA256256fRobust   = pqc.OIDSignatureSphincsPlusSHA256256fRobust
+	oidSignatureSphincsPlusSHAKE256256sSimple = pqc.OIDSignatureSphincsPlusSHAKE256256sSimple
+	oidSignatureSphincsPlusSHAKE256256fSimple = pqc.OIDSignatureSphincsPlusSHAKE256256fSimple
+	oidSignatureSphincsPlusSHAKE256256sRobust = pqc.OIDSignatureSphincsPlusSHAKE256256sRobust
+	oidSignatureSphincsPlusSHAKE256256fRobust = pqc.OIDSignatureSphincsPlusSHAKE256256fRobust
 
 	oidSHA256 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 1}
 	oidSHA384 = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 2}
@@ -364,7 +428,23 @@ var signatureAlgorithmDetails = []struct {
 	{ECDSAWithSHA512, "ECDSA-SHA512", oidSignatureECDSAWithSHA512, ECDSA, crypto.SHA512},
 	{PureEd25519, "Ed25519", oidSignatureEd25519, Ed25519, crypto.Hash(0) /* no pre-hashing */},
 	{PureDilithium5, "Dilithium5", oidSignatureDilithium5, Dilithium5, crypto.Hash(0)},
+	{PureDilithium5AES, "Dilithium5-AES", oidSignatureDilithium5AES, Dilithium5AES, crypto.Hash(0)},
 	{PureFalcon1024, "Falcon-1024", oidSignatureFalcon1024, Falcon1024, crypto.Hash(0)},
+	{PureRainbowVClassic, "Rainbow-V-Classic", oidSignatureRainbowVClassic, RainbowVClassic, crypto.Hash(0)},
+	{PureRainbowVCircumzenithal, "Rainbow-V-Circumzenithal", oidSignatureRainbowVCircumzenithal, RainbowVCircumzenithal, crypto.Hash(0)},
+	{PureRainbowVCompressed, "Rainbow-V-Compressed", oidSignatureRainbowVCompressed, RainbowVCompressed, crypto.Hash(0)},
+	{PureSphincsPlusHaraka256sSimple, "SPHINCS+-Haraka-256s-Simple", oidSignatureSphincsPlusHaraka256sSimple, SphincsPlusHaraka256sSimple, crypto.Hash(0)},
+	{PureSphincsPlusHaraka256fSimple, "SPHINCS+-Haraka-256f-Simple", oidSignatureSphincsPlusHaraka256fSimple, SphincsPlusHaraka256fSimple, crypto.Hash(0)},
+	{PureSphincsPlusHaraka256sRobust, "SPHINCS+-Haraka-256s-Robust", oidSignatureSphincsPlusHaraka256sRobust, SphincsPlusHaraka256sRobust, crypto.Hash(0)},
+	{PureSphincsPlusHaraka256fRobust, "SPHINCS+-Haraka-256f-Robust", oidSignatureSphincsPlusHaraka256fRobust, SphincsPlusHaraka256fRobust, crypto.Hash(0)},
+	{PureSphincsPlusSHA256256sSimple, "SPHINCS+-SHA256-256s-Simple", oidSignatureSphincsPlusSHA256256sSimple, SphincsPlusSHA256256fSimple, crypto.Hash(0)},
+	{PureSphincsPlusSHA256256fSimple, "SPHINCS+-SHA256-256f-Simple", oidSignatureSphincsPlusSHA256256fSimple, SphincsPlusSHA256256sSimple, crypto.Hash(0)},
+	{PureSphincsPlusSHA256256sRobust, "SPHINCS+-SHA256-256s-Robust", oidSignatureSphincsPlusSHA256256sRobust, SphincsPlusSHA256256sRobust, crypto.Hash(0)},
+	{PureSphincsPlusSHA256256fRobust, "SPHINCS+-SHA256-256f-Robust", oidSignatureSphincsPlusSHA256256fRobust, SphincsPlusSHA256256fRobust, crypto.Hash(0)},
+	{PureSphincsPlusSHAKE256256sSimple, "SPHINCS+-SHAKE256-256s-Simple", oidSignatureSphincsPlusSHAKE256256sSimple, SphincsPlusSHAKE256256sSimple, crypto.Hash(0)},
+	{PureSphincsPlusSHAKE256256fSimple, "SPHINCS+-SHAKE256-256f-Simple", oidSignatureSphincsPlusSHAKE256256fSimple, SphincsPlusSHAKE256256fSimple, crypto.Hash(0)},
+	{PureSphincsPlusSHAKE256256sRobust, "SPHINCS+-SHAKE256-256s-Robust", oidSignatureSphincsPlusSHAKE256256sRobust, SphincsPlusSHAKE256256sRobust, crypto.Hash(0)},
+	{PureSphincsPlusSHAKE256256fRobust, "SPHINCS+-SHAKE256-256f-Robust", oidSignatureSphincsPlusSHAKE256256fRobust, SphincsPlusSHAKE256256fRobust, crypto.Hash(0)},
 }
 
 // hashToPSSParameters contains the DER encoded RSA PSS parameters for the
@@ -463,12 +543,28 @@ func getSignatureAlgorithmFromAI(ai pkix.AlgorithmIdentifier) SignatureAlgorithm
 // id-ecPublicKey OBJECT IDENTIFIER ::= {
 //       iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
 var (
-	oidPublicKeyRSA        = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 1}
-	oidPublicKeyDSA        = asn1.ObjectIdentifier{1, 2, 840, 10040, 4, 1}
-	oidPublicKeyECDSA      = asn1.ObjectIdentifier{1, 2, 840, 10045, 2, 1}
-	oidPublicKeyEd25519    = oidSignatureEd25519
-	oidPublicKeyDilithium5 = pqc.OIDPublicKeyDilithium5
-	oidPublicKeyFalcon1024 = pqc.OIDPublicKeyFalcon1024
+	oidPublicKeyRSA                           = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 1}
+	oidPublicKeyDSA                           = asn1.ObjectIdentifier{1, 2, 840, 10040, 4, 1}
+	oidPublicKeyECDSA                         = asn1.ObjectIdentifier{1, 2, 840, 10045, 2, 1}
+	oidPublicKeyEd25519                       = oidSignatureEd25519
+	oidPublicKeyDilithium5                    = pqc.OIDSignatureDilithium5
+	oidPublicKeyDilithium5AES                 = pqc.OIDPublicKeyDilithium5AES
+	oidPublicKeyFalcon1024                    = pqc.OIDPublicKeyFalcon1024
+	oidPublicKeyRainbowVClassic               = pqc.OIDPublicKeyRainbowVClassic
+	oidPublicKeyRainbowVCircumzenithal        = pqc.OIDPublicKeyRainbowVCircumzenithal
+	oidPublicKeyRainbowVCompressed            = pqc.OIDPublicKeyRainbowVCompressed
+	oidPublicKeySphincsPlusHaraka256sSimple   = pqc.OIDPublicKeySphincsPlusHaraka256sSimple
+	oidPublicKeySphincsPlusHaraka256fSimple   = pqc.OIDPublicKeySphincsPlusHaraka256fSimple
+	oidPublicKeySphincsPlusHaraka256sRobust   = pqc.OIDPublicKeySphincsPlusHaraka256sRobust
+	oidPublicKeySphincsPlusHaraka256fRobust   = pqc.OIDPublicKeySphincsPlusHaraka256fRobust
+	oidPublicKeySphincsPlusSHA256256sSimple   = pqc.OIDPublicKeySphincsPlusSHA256256sSimple
+	oidPublicKeySphincsPlusSHA256256fSimple   = pqc.OIDPublicKeySphincsPlusSHA256256fSimple
+	oidPublicKeySphincsPlusSHA256256sRobust   = pqc.OIDPublicKeySphincsPlusSHA256256sRobust
+	oidPublicKeySphincsPlusSHA256256fRobust   = pqc.OIDPublicKeySphincsPlusSHA256256fRobust
+	oidPublicKeySphincsPlusSHAKE256256sSimple = pqc.OIDPublicKeySphincsPlusSHAKE256256sSimple
+	oidPublicKeySphincsPlusSHAKE256256fSimple = pqc.OIDPublicKeySphincsPlusSHAKE256256fSimple
+	oidPublicKeySphincsPlusSHAKE256256sRobust = pqc.OIDPublicKeySphincsPlusSHAKE256256sRobust
+	oidPublicKeySphincsPlusSHAKE256256fRobust = pqc.OIDPublicKeySphincsPlusSHAKE256256fRobust
 )
 
 func getPublicKeyAlgorithmFromOID(oid asn1.ObjectIdentifier) PublicKeyAlgorithm {
@@ -483,8 +579,40 @@ func getPublicKeyAlgorithmFromOID(oid asn1.ObjectIdentifier) PublicKeyAlgorithm 
 		return Ed25519
 	case oid.Equal(oidPublicKeyDilithium5):
 		return Dilithium5
+	case oid.Equal(oidPublicKeyDilithium5AES):
+		return Dilithium5AES
 	case oid.Equal(oidPublicKeyFalcon1024):
 		return Falcon1024
+	case oid.Equal(oidPublicKeyRainbowVClassic):
+		return RainbowVClassic
+	case oid.Equal(oidPublicKeyRainbowVCircumzenithal):
+		return RainbowVCircumzenithal
+	case oid.Equal(oidPublicKeyRainbowVCompressed):
+		return RainbowVCompressed
+	case oid.Equal(oidPublicKeySphincsPlusHaraka256sSimple):
+		return SphincsPlusHaraka256sSimple
+	case oid.Equal(oidPublicKeySphincsPlusHaraka256fSimple):
+		return SphincsPlusHaraka256fSimple
+	case oid.Equal(oidPublicKeySphincsPlusHaraka256sRobust):
+		return SphincsPlusHaraka256sRobust
+	case oid.Equal(oidPublicKeySphincsPlusHaraka256fRobust):
+		return SphincsPlusHaraka256fRobust
+	case oid.Equal(oidPublicKeySphincsPlusSHA256256sSimple):
+		return SphincsPlusSHA256256sSimple
+	case oid.Equal(oidPublicKeySphincsPlusSHA256256fSimple):
+		return SphincsPlusSHA256256fSimple
+	case oid.Equal(oidPublicKeySphincsPlusSHA256256sRobust):
+		return SphincsPlusSHA256256sRobust
+	case oid.Equal(oidPublicKeySphincsPlusSHA256256fRobust):
+		return SphincsPlusSHA256256fRobust
+	case oid.Equal(oidPublicKeySphincsPlusSHAKE256256sSimple):
+		return SphincsPlusSHAKE256256sSimple
+	case oid.Equal(oidPublicKeySphincsPlusSHAKE256256fSimple):
+		return SphincsPlusSHAKE256256fSimple
+	case oid.Equal(oidPublicKeySphincsPlusSHAKE256256sRobust):
+		return SphincsPlusSHAKE256256sRobust
+	case oid.Equal(oidPublicKeySphincsPlusSHAKE256256fRobust):
+		return SphincsPlusSHAKE256256fRobust
 	}
 	return UnknownPublicKeyAlgorithm
 }
@@ -1379,9 +1507,57 @@ func signingParamsForPublicKey(pub interface{}, requestedSigAlgo SignatureAlgori
 		case "dilithium5":
 			pubType = Dilithium5
 			sigAlgo.Algorithm = oidSignatureDilithium5
+		case "dilithium5-aes":
+			pubType = Dilithium5AES
+			sigAlgo.Algorithm = oidSignatureDilithium5AES
 		case "falcon-1024":
 			pubType = Falcon1024
 			sigAlgo.Algorithm = oidSignatureFalcon1024
+		case "rainbow-v-classic":
+			pubType = RainbowVClassic
+			sigAlgo.Algorithm = oidSignatureRainbowVClassic
+		case "rainbow-v-circumzenithal":
+			pubType = RainbowVCircumzenithal
+			sigAlgo.Algorithm = oidSignatureRainbowVCircumzenithal
+		case "rainbow-v-compressed":
+			pubType = RainbowVCompressed
+			sigAlgo.Algorithm = oidSignatureRainbowVCompressed
+		case "sphincs+-haraka-256s-simple":
+			pubType = SphincsPlusHaraka256sSimple
+			sigAlgo.Algorithm = oidSignatureSphincsPlusHaraka256sSimple
+		case "sphincs+-haraka-256f-simple":
+			pubType = SphincsPlusHaraka256fSimple
+			sigAlgo.Algorithm = oidSignatureSphincsPlusHaraka256fSimple
+		case "sphincs+-haraka-256s-robust":
+			pubType = SphincsPlusHaraka256sRobust
+			sigAlgo.Algorithm = oidSignatureSphincsPlusHaraka256sRobust
+		case "sphincs+-haraka-256f-robust":
+			pubType = SphincsPlusHaraka256fRobust
+			sigAlgo.Algorithm = oidSignatureSphincsPlusHaraka256fRobust
+		case "sphincs+-sha256-256s-simple":
+			pubType = SphincsPlusSHA256256sSimple
+			sigAlgo.Algorithm = oidSignatureSphincsPlusSHA256256sSimple
+		case "sphincs+-sha256-256f-simple":
+			pubType = SphincsPlusSHA256256fSimple
+			sigAlgo.Algorithm = oidSignatureSphincsPlusSHA256256fSimple
+		case "sphincs+-sha256-256s-robust":
+			pubType = SphincsPlusSHA256256sRobust
+			sigAlgo.Algorithm = oidSignatureSphincsPlusSHA256256sRobust
+		case "sphincs+-sha256-256f-robust":
+			pubType = SphincsPlusSHA256256fRobust
+			sigAlgo.Algorithm = oidSignatureSphincsPlusSHA256256fRobust
+		case "sphincs+-shake256-256s-simple":
+			pubType = SphincsPlusSHAKE256256sSimple
+			sigAlgo.Algorithm = oidSignatureSphincsPlusSHAKE256256sSimple
+		case "sphincs+-shake256-256f-simple":
+			pubType = SphincsPlusSHAKE256256fSimple
+			sigAlgo.Algorithm = oidSignatureSphincsPlusSHAKE256256fSimple
+		case "sphincs+-shake256-256s-robust":
+			pubType = SphincsPlusSHAKE256256sRobust
+			sigAlgo.Algorithm = oidSignatureSphincsPlusSHAKE256256sRobust
+		case "sphincs+-shake256-256f-robust":
+			pubType = SphincsPlusSHAKE256256fRobust
+			sigAlgo.Algorithm = oidSignatureSphincsPlusSHAKE256256fRobust
 		}
 
 	case *rsa.PublicKey:
