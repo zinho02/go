@@ -132,6 +132,42 @@ func GetPublicKeyOIDFromPublicKey(algName string) asn1.ObjectIdentifier {
 		return OIDPublicKeySphincsPlusSHAKE256256sRobust
 	case "sphincs+-shake256-256f-robust":
 		return OIDPublicKeySphincsPlusSHAKE256256fRobust
+	case "dilithium2":
+		return OIDPublicKeyDilithium5
+	case "dilithium2-aes":
+		return OIDPublicKeyDilithium5AES
+	case "falcon-512":
+		return OIDPublicKeyFalcon1024
+	case "rainbow-i-classic":
+		return OIDPublicKeyRainbowIClassic
+	case "rainbow-i-circumzenithal":
+		return OIDPublicKeyRainbowICircumzenithal
+	case "rainbow-i-compressed":
+		return OIDPublicKeyRainbowICompressed
+	case "sphincs+-haraka-128s-simple":
+		return OIDPublicKeySphincsPlusHaraka128sSimple
+	case "sphincs+-haraka-128f-simple":
+		return OIDPublicKeySphincsPlusHaraka128fSimple
+	case "sphincs+-haraka-128s-robust":
+		return OIDPublicKeySphincsPlusHaraka128sRobust
+	case "sphincs+-haraka-128f-robust":
+		return OIDPublicKeySphincsPlusHaraka128fRobust
+	case "sphincs+-sha256-128s-simple":
+		return OIDPublicKeySphincsPlusSHA256128sSimple
+	case "sphincs+-sha256-128f-simple":
+		return OIDPublicKeySphincsPlusSHA256128fSimple
+	case "sphincs+-sha256-128s-robust":
+		return OIDPublicKeySphincsPlusSHA256128sRobust
+	case "sphincs+-sha256-128f-robust":
+		return OIDPublicKeySphincsPlusSHA256128fRobust
+	case "sphincs+-shake256-128s-simple":
+		return OIDPublicKeySphincsPlusSHAKE256128sSimple
+	case "sphincs+-shake256-128f-simple":
+		return OIDPublicKeySphincsPlusSHAKE256128fSimple
+	case "sphincs+-shake256-128s-robust":
+		return OIDPublicKeySphincsPlusSHAKE256128sRobust
+	case "sphincs+-shake256-128f-robust":
+		return OIDPublicKeySphincsPlusSHAKE256128fRobust
 	default:
 		return nil
 	}
@@ -175,6 +211,42 @@ func GetPublicKeyFromPublicKeyOID(oid asn1.ObjectIdentifier) string {
 		return "sphincs+-shake256-256s-robust"
 	case oid.Equal(OIDPublicKeySphincsPlusSHAKE256256fRobust):
 		return "sphincs+-shake256-256f-robust"
+	case oid.Equal(OIDPublicKeyDilithium2):
+		return "dilithium2"
+	case oid.Equal(OIDPublicKeyDilithium2AES):
+		return "dilithium2-aes"
+	case oid.Equal(OIDPublicKeyFalcon512):
+		return "falcon-512"
+	case oid.Equal(OIDPublicKeyRainbowIClassic):
+		return "rainbow-i-classic"
+	case oid.Equal(OIDPublicKeyRainbowICircumzenithal):
+		return "rainbow-i-circumzenithal"
+	case oid.Equal(OIDPublicKeyRainbowICompressed):
+		return "rainbow-i-compressed"
+	case oid.Equal(OIDPublicKeySphincsPlusHaraka128sSimple):
+		return "sphincs+-haraka-128s-simple"
+	case oid.Equal(OIDPublicKeySphincsPlusHaraka128fSimple):
+		return "sphincs+-haraka-128f-simple"
+	case oid.Equal(OIDPublicKeySphincsPlusHaraka128sRobust):
+		return "sphincs+-haraka-128s-robust"
+	case oid.Equal(OIDPublicKeySphincsPlusHaraka128fRobust):
+		return "sphincs+-haraka-128f-robust"
+	case oid.Equal(OIDPublicKeySphincsPlusSHA256128sSimple):
+		return "sphincs+-sha256-128s-simple"
+	case oid.Equal(OIDPublicKeySphincsPlusSHA256128fSimple):
+		return "sphincs+-sha256-128f-simple"
+	case oid.Equal(OIDPublicKeySphincsPlusSHA256128sRobust):
+		return "sphincs+-sha256-128s-robust"
+	case oid.Equal(OIDPublicKeySphincsPlusSHA256128fRobust):
+		return "sphincs+-sha256-128f-robust"
+	case oid.Equal(OIDPublicKeySphincsPlusSHAKE256128sSimple):
+		return "sphincs+-shake256-128s-simple"
+	case oid.Equal(OIDPublicKeySphincsPlusSHAKE256128fSimple):
+		return "sphincs+-shake256-128f-simple"
+	case oid.Equal(OIDPublicKeySphincsPlusSHAKE256128sRobust):
+		return "sphincs+-shake256-128s-robust"
+	case oid.Equal(OIDPublicKeySphincsPlusSHAKE256128fRobust):
+		return "sphincs+-shake256-128f-robust"
 	default:
 		return ""
 	}
@@ -218,6 +290,42 @@ func GetSignatureOIDFromPublicKey(algName string) asn1.ObjectIdentifier {
 		return OIDSignatureSphincsPlusSHAKE256256sRobust
 	case "sphincs+-shake256-256f-robust":
 		return OIDSignatureSphincsPlusSHAKE256256fRobust
+	case "dilithium2":
+		return OIDSignatureDilithium5
+	case "dilithium2-aes":
+		return OIDSignatureDilithium5AES
+	case "falcon-512":
+		return OIDSignatureFalcon1024
+	case "rainbow-i-classic":
+		return OIDSignatureRainbowIClassic
+	case "rainbow-i-circumzenithal":
+		return OIDSignatureRainbowICircumzenithal
+	case "rainbow-i-compressed":
+		return OIDSignatureRainbowICompressed
+	case "sphincs+-haraka-128s-simple":
+		return OIDSignatureSphincsPlusHaraka128sSimple
+	case "sphincs+-haraka-128f-simple":
+		return OIDSignatureSphincsPlusHaraka128fSimple
+	case "sphincs+-haraka-128s-robust":
+		return OIDSignatureSphincsPlusHaraka128sRobust
+	case "sphincs+-haraka-128f-robust":
+		return OIDSignatureSphincsPlusHaraka128fRobust
+	case "sphincs+-sha256-128s-simple":
+		return OIDSignatureSphincsPlusSHA256128sSimple
+	case "sphincs+-sha256-128f-simple":
+		return OIDSignatureSphincsPlusSHA256128fSimple
+	case "sphincs+-sha256-128s-robust":
+		return OIDSignatureSphincsPlusSHA256128sRobust
+	case "sphincs+-sha256-128f-robust":
+		return OIDSignatureSphincsPlusSHA256128fRobust
+	case "sphincs+-shake256-128s-simple":
+		return OIDSignatureSphincsPlusSHAKE256128sSimple
+	case "sphincs+-shake256-128f-simple":
+		return OIDSignatureSphincsPlusSHAKE256128fSimple
+	case "sphincs+-shake256-128s-robust":
+		return OIDSignatureSphincsPlusSHAKE256128sRobust
+	case "sphincs+-shake256-128f-robust":
+		return OIDSignatureSphincsPlusSHAKE256128fRobust
 	default:
 		return nil
 	}
@@ -261,49 +369,121 @@ func GetPublicKeyFromSignatureOID(oid asn1.ObjectIdentifier) string {
 		return "sphincs+-shake256-256s-robust"
 	case oid.Equal(OIDSignatureSphincsPlusSHAKE256256fRobust):
 		return "sphincs+-shake256-256f-robust"
+	case oid.Equal(OIDSignatureDilithium2):
+		return "dilithium2"
+	case oid.Equal(OIDSignatureDilithium2AES):
+		return "dilithium2-aes"
+	case oid.Equal(OIDSignatureFalcon512):
+		return "falcon-512"
+	case oid.Equal(OIDSignatureRainbowIClassic):
+		return "rainbow-i-classic"
+	case oid.Equal(OIDSignatureRainbowICircumzenithal):
+		return "rainbow-i-circumzenithal"
+	case oid.Equal(OIDSignatureRainbowICompressed):
+		return "rainbow-i-compressed"
+	case oid.Equal(OIDSignatureSphincsPlusHaraka128sSimple):
+		return "sphincs+-haraka-128s-simple"
+	case oid.Equal(OIDSignatureSphincsPlusHaraka128fSimple):
+		return "sphincs+-haraka-128f-simple"
+	case oid.Equal(OIDSignatureSphincsPlusHaraka128sRobust):
+		return "sphincs+-haraka-128s-robust"
+	case oid.Equal(OIDSignatureSphincsPlusHaraka128fRobust):
+		return "sphincs+-haraka-128f-robust"
+	case oid.Equal(OIDSignatureSphincsPlusSHA256128sSimple):
+		return "sphincs+-sha256-128s-simple"
+	case oid.Equal(OIDSignatureSphincsPlusSHA256128fSimple):
+		return "sphincs+-sha256-128f-simple"
+	case oid.Equal(OIDSignatureSphincsPlusSHA256128sRobust):
+		return "sphincs+-sha256-128s-robust"
+	case oid.Equal(OIDSignatureSphincsPlusSHA256128fRobust):
+		return "sphincs+-sha256-128f-robust"
+	case oid.Equal(OIDSignatureSphincsPlusSHAKE256128sSimple):
+		return "sphincs+-shake256-128s-simple"
+	case oid.Equal(OIDSignatureSphincsPlusSHAKE256128fSimple):
+		return "sphincs+-shake256-128f-simple"
+	case oid.Equal(OIDSignatureSphincsPlusSHAKE256128sRobust):
+		return "sphincs+-shake256-128s-robust"
+	case oid.Equal(OIDSignatureSphincsPlusSHAKE256128fRobust):
+		return "sphincs+-shake256-128f-robust"
 	default:
 		return ""
 	}
 }
 
 var (
-	OIDPublicKeyDilithium5                    = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 6, 7}
+	OIDPublicKeyDilithium5                    = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 7, 8, 7}
 	OIDPublicKeyFalcon1024                    = asn1.ObjectIdentifier{1, 3, 9999, 3, 4}
-	OIDPublicKeyDilithium5AES                 = asn1.ObjectIdentifier{1, 3, 9999, 3, 5}
-	OIDPublicKeyRainbowVClassic               = asn1.ObjectIdentifier{1, 3, 9999, 3, 6}
-	OIDPublicKeyRainbowVCircumzenithal        = asn1.ObjectIdentifier{1, 3, 9999, 3, 7}
-	OIDPublicKeyRainbowVCompressed            = asn1.ObjectIdentifier{1, 3, 9999, 3, 8}
-	OIDPublicKeySphincsPlusHaraka256sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 3, 9}
-	OIDPublicKeySphincsPlusHaraka256fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 3, 10}
-	OIDPublicKeySphincsPlusHaraka256sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 3, 11}
-	OIDPublicKeySphincsPlusHaraka256fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 3, 12}
+	OIDPublicKeyDilithium5AES                 = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 11, 8, 7}
+	OIDPublicKeyRainbowVClassic               = asn1.ObjectIdentifier{1, 3, 9999, 5, 3, 1, 1}
+	OIDPublicKeyRainbowVCircumzenithal        = asn1.ObjectIdentifier{1, 3, 9999, 5, 3, 3, 1}
+	OIDPublicKeyRainbowVCompressed            = asn1.ObjectIdentifier{1, 3, 9999, 5, 3, 5, 1}
+	OIDPublicKeySphincsPlusHaraka256sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 3, 7}
+	OIDPublicKeySphincsPlusHaraka256fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 3, 3}
+	OIDPublicKeySphincsPlusHaraka256sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 3, 5}
+	OIDPublicKeySphincsPlusHaraka256fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 3, 1}
 	OIDPublicKeySphincsPlusSHA256256sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 3, 13}
-	OIDPublicKeySphincsPlusSHA256256fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 3, 14}
-	OIDPublicKeySphincsPlusSHA256256sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 3, 15}
-	OIDPublicKeySphincsPlusSHA256256fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 3, 16}
-	OIDPublicKeySphincsPlusSHAKE256256sSimple = asn1.ObjectIdentifier{1, 3, 9999, 3, 17}
-	OIDPublicKeySphincsPlusSHAKE256256fSimple = asn1.ObjectIdentifier{1, 3, 9999, 3, 18}
-	OIDPublicKeySphincsPlusSHAKE256256sRobust = asn1.ObjectIdentifier{1, 3, 9999, 3, 19}
-	OIDPublicKeySphincsPlusSHAKE256256fRobust = asn1.ObjectIdentifier{1, 3, 9999, 3, 20}
+	OIDPublicKeySphincsPlusSHA256256fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 6, 7}
+	OIDPublicKeySphincsPlusSHA256256sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 6, 5}
+	OIDPublicKeySphincsPlusSHA256256fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 6, 1}
+	OIDPublicKeySphincsPlusSHAKE256256sSimple = asn1.ObjectIdentifier{1, 3, 9999, 6, 9, 7}
+	OIDPublicKeySphincsPlusSHAKE256256fSimple = asn1.ObjectIdentifier{1, 3, 9999, 6, 9, 3}
+	OIDPublicKeySphincsPlusSHAKE256256sRobust = asn1.ObjectIdentifier{1, 3, 9999, 6, 9, 5}
+	OIDPublicKeySphincsPlusSHAKE256256fRobust = asn1.ObjectIdentifier{1, 3, 9999, 6, 9, 1}
+	OIDPublicKeyDilithium2                    = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 7, 4, 4}
+	OIDPublicKeyFalcon512                     = asn1.ObjectIdentifier{1, 3, 9999, 3, 1}
+	OIDPublicKeyDilithium2AES                 = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 11, 4, 4}
+	OIDPublicKeyRainbowIClassic               = asn1.ObjectIdentifier{1, 3, 9999, 5, 1, 1, 1}
+	OIDPublicKeyRainbowICircumzenithal        = asn1.ObjectIdentifier{1, 3, 9999, 5, 1, 1, 1}
+	OIDPublicKeyRainbowICompressed            = asn1.ObjectIdentifier{1, 3, 9999, 5, 1, 7, 1}
+	OIDPublicKeySphincsPlusHaraka128sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 1, 10}
+	OIDPublicKeySphincsPlusHaraka128fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 1, 4}
+	OIDPublicKeySphincsPlusHaraka128sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 1, 7}
+	OIDPublicKeySphincsPlusHaraka128fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 1, 1}
+	OIDPublicKeySphincsPlusSHA256128sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 4, 10}
+	OIDPublicKeySphincsPlusSHA256128fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 4, 4}
+	OIDPublicKeySphincsPlusSHA256128sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 4, 7}
+	OIDPublicKeySphincsPlusSHA256128fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 4, 1}
+	OIDPublicKeySphincsPlusSHAKE256128sSimple = asn1.ObjectIdentifier{1, 3, 9999, 6, 7, 10}
+	OIDPublicKeySphincsPlusSHAKE256128fSimple = asn1.ObjectIdentifier{1, 3, 9999, 6, 7, 4}
+	OIDPublicKeySphincsPlusSHAKE256128sRobust = asn1.ObjectIdentifier{1, 3, 9999, 6, 7, 7}
+	OIDPublicKeySphincsPlusSHAKE256128fRobust = asn1.ObjectIdentifier{1, 3, 9999, 6, 7, 1}
 )
 
 var (
-	OIDSignatureDilithium5                    = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 6, 7}
+	OIDSignatureDilithium5                    = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 7, 8, 7}
 	OIDSignatureFalcon1024                    = asn1.ObjectIdentifier{1, 3, 9999, 3, 4}
-	OIDSignatureDilithium5AES                 = asn1.ObjectIdentifier{1, 3, 9999, 3, 5}
-	OIDSignatureRainbowVClassic               = asn1.ObjectIdentifier{1, 3, 9999, 3, 6}
-	OIDSignatureRainbowVCircumzenithal        = asn1.ObjectIdentifier{1, 3, 9999, 3, 7}
-	OIDSignatureRainbowVCompressed            = asn1.ObjectIdentifier{1, 3, 9999, 3, 8}
-	OIDSignatureSphincsPlusHaraka256sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 3, 9}
-	OIDSignatureSphincsPlusHaraka256fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 3, 10}
-	OIDSignatureSphincsPlusHaraka256sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 3, 11}
-	OIDSignatureSphincsPlusHaraka256fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 3, 12}
+	OIDSignatureDilithium5AES                 = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 11, 8, 7}
+	OIDSignatureRainbowVClassic               = asn1.ObjectIdentifier{1, 3, 9999, 5, 3, 1, 1}
+	OIDSignatureRainbowVCircumzenithal        = asn1.ObjectIdentifier{1, 3, 9999, 5, 3, 3, 1}
+	OIDSignatureRainbowVCompressed            = asn1.ObjectIdentifier{1, 3, 9999, 5, 3, 5, 1}
+	OIDSignatureSphincsPlusHaraka256sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 3, 7}
+	OIDSignatureSphincsPlusHaraka256fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 3, 3}
+	OIDSignatureSphincsPlusHaraka256sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 3, 5}
+	OIDSignatureSphincsPlusHaraka256fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 3, 1}
 	OIDSignatureSphincsPlusSHA256256sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 3, 13}
-	OIDSignatureSphincsPlusSHA256256fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 3, 14}
-	OIDSignatureSphincsPlusSHA256256sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 3, 15}
-	OIDSignatureSphincsPlusSHA256256fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 3, 16}
-	OIDSignatureSphincsPlusSHAKE256256sSimple = asn1.ObjectIdentifier{1, 3, 9999, 3, 17}
-	OIDSignatureSphincsPlusSHAKE256256fSimple = asn1.ObjectIdentifier{1, 3, 9999, 3, 18}
-	OIDSignatureSphincsPlusSHAKE256256sRobust = asn1.ObjectIdentifier{1, 3, 9999, 3, 19}
-	OIDSignatureSphincsPlusSHAKE256256fRobust = asn1.ObjectIdentifier{1, 3, 9999, 3, 20}
+	OIDSignatureSphincsPlusSHA256256fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 6, 7}
+	OIDSignatureSphincsPlusSHA256256sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 6, 5}
+	OIDSignatureSphincsPlusSHA256256fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 6, 1}
+	OIDSignatureSphincsPlusSHAKE256256sSimple = asn1.ObjectIdentifier{1, 3, 9999, 6, 9, 7}
+	OIDSignatureSphincsPlusSHAKE256256fSimple = asn1.ObjectIdentifier{1, 3, 9999, 6, 9, 3}
+	OIDSignatureSphincsPlusSHAKE256256sRobust = asn1.ObjectIdentifier{1, 3, 9999, 6, 9, 5}
+	OIDSignatureSphincsPlusSHAKE256256fRobust = asn1.ObjectIdentifier{1, 3, 9999, 6, 9, 1}
+	OIDSignatureDilithium2                    = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 7, 4, 4}
+	OIDSignatureFalcon512                     = asn1.ObjectIdentifier{1, 3, 9999, 3, 1}
+	OIDSignatureDilithium2AES                 = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 2, 267, 11, 4, 4}
+	OIDSignatureRainbowIClassic               = asn1.ObjectIdentifier{1, 3, 9999, 5, 1, 1, 1}
+	OIDSignatureRainbowICircumzenithal        = asn1.ObjectIdentifier{1, 3, 9999, 5, 1, 1, 1}
+	OIDSignatureRainbowICompressed            = asn1.ObjectIdentifier{1, 3, 9999, 5, 1, 7, 1}
+	OIDSignatureSphincsPlusHaraka128sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 1, 10}
+	OIDSignatureSphincsPlusHaraka128fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 1, 4}
+	OIDSignatureSphincsPlusHaraka128sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 1, 7}
+	OIDSignatureSphincsPlusHaraka128fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 1, 1}
+	OIDSignatureSphincsPlusSHA256128sSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 4, 10}
+	OIDSignatureSphincsPlusSHA256128fSimple   = asn1.ObjectIdentifier{1, 3, 9999, 6, 4, 4}
+	OIDSignatureSphincsPlusSHA256128sRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 4, 7}
+	OIDSignatureSphincsPlusSHA256128fRobust   = asn1.ObjectIdentifier{1, 3, 9999, 6, 4, 1}
+	OIDSignatureSphincsPlusSHAKE256128sSimple = asn1.ObjectIdentifier{1, 3, 9999, 6, 7, 10}
+	OIDSignatureSphincsPlusSHAKE256128fSimple = asn1.ObjectIdentifier{1, 3, 9999, 6, 7, 4}
+	OIDSignatureSphincsPlusSHAKE256128sRobust = asn1.ObjectIdentifier{1, 3, 9999, 6, 7, 7}
+	OIDSignatureSphincsPlusSHAKE256128fRobust = asn1.ObjectIdentifier{1, 3, 9999, 6, 7, 1}
 )

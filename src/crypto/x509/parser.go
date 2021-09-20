@@ -426,6 +426,114 @@ func parsePublicKey(algo PublicKeyAlgorithm, keyData *publicKeyInfo) (interface{
 			AlgName: "sphincs+-shake256-256f-robust",
 		}
 		return pub, nil
+	case Dilithium2:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "dilithium2",
+		}
+		return pub, nil
+	case Dilithium2AES:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "dilithium2-aes",
+		}
+		return pub, nil
+	case Falcon512:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "falcon-512",
+		}
+		return pub, nil
+	case RainbowIClassic:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "rainbow-i-classic",
+		}
+		return pub, nil
+	case RainbowICircumzenithal:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "rainbow-i-circumzenithal",
+		}
+		return pub, nil
+	case RainbowICompressed:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "rainbow-i-compressed",
+		}
+		return pub, nil
+	case SphincsPlusHaraka128sSimple:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-haraka-128s-simple",
+		}
+		return pub, nil
+	case SphincsPlusHaraka128fSimple:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-haraka-128f-simple",
+		}
+		return pub, nil
+	case SphincsPlusHaraka128sRobust:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-haraka-128s-robust",
+		}
+		return pub, nil
+	case SphincsPlusHaraka128fRobust:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-haraka-128f-robust",
+		}
+		return pub, nil
+	case SphincsPlusSHA256128sSimple:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-sha256-128s-simple",
+		}
+		return pub, nil
+	case SphincsPlusSHA256128fSimple:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-sha256-128f-simple",
+		}
+		return pub, nil
+	case SphincsPlusSHA256128sRobust:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-sha256-128s-robust",
+		}
+		return pub, nil
+	case SphincsPlusSHA256128fRobust:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-sha256-128f-robust",
+		}
+		return pub, nil
+	case SphincsPlusSHAKE256128sSimple:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-shake256-128s-simple",
+		}
+		return pub, nil
+	case SphincsPlusSHAKE256128fSimple:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-shake256-128f-simple",
+		}
+		return pub, nil
+	case SphincsPlusSHAKE256128sRobust:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-shake256-128s-robust",
+		}
+		return pub, nil
+	case SphincsPlusSHAKE256128fRobust:
+		pub := &pqc.PublicKey{
+			Bytes:   keyData.PublicKey.Bytes,
+			AlgName: "sphincs+-shake256-128f-robust",
+		}
+		return pub, nil
 	default:
 		return nil, nil
 	}

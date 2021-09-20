@@ -230,6 +230,186 @@ func ParsePKCS8PrivateKey(der []byte) (key interface{}, err error) {
 		}
 		key.Signer.Init(algName, privKey.PrivateKey)
 		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyDilithium2):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeyDilithium2)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyDilithium2AES):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeyDilithium2AES)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyFalcon512):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeyFalcon512)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyRainbowIClassic):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeyRainbowIClassic)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyRainbowICircumzenithal):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeyRainbowICircumzenithal)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeyRainbowICompressed):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeyRainbowICompressed)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusHaraka128sSimple):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusHaraka128sSimple)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusHaraka128fSimple):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusHaraka128fSimple)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusHaraka128sRobust):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusHaraka128sRobust)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusHaraka128fRobust):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusHaraka128fRobust)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusSHA256128sSimple):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusSHA256128sSimple)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusSHA256128fSimple):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusSHA256128fSimple)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusSHA256128sRobust):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusSHA256128sRobust)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusSHA256128fRobust):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusSHA256128fRobust)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusSHAKE256128sSimple):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusSHAKE256128sSimple)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusSHAKE256128fSimple):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusSHAKE256128fSimple)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusSHAKE256128sRobust):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusSHAKE256128sRobust)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
+	case privKey.Algo.Algorithm.Equal(oidPublicKeySphincsPlusSHAKE256128fRobust):
+		algName := pqc.GetPublicKeyFromPublicKeyOID(oidPublicKeySphincsPlusSHAKE256128fRobust)
+		key := pqc.PrivateKey{
+			PublicKey: pqc.PublicKey{
+				Bytes:   privKey.PublicKey,
+				AlgName: algName,
+			},
+		}
+		key.Signer.Init(algName, privKey.PrivateKey)
+		return key, nil
 	case privKey.Algo.Algorithm.Equal(oidPublicKeyECDSA):
 		bytes := privKey.Algo.Parameters.FullBytes
 		namedCurveOID := new(asn1.ObjectIdentifier)
